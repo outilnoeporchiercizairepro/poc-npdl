@@ -1,11 +1,12 @@
 import React from 'react'
-import { LayoutDashboard, Users, Phone, BarChart3, LogOut, ChevronRight } from 'lucide-react'
+import { LayoutDashboard, Users, Phone, BarChart3, LogOut, ChevronRight, Mic } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { supabase } from '../lib/supabase'
 
 const navItems = [
   { icon: LayoutDashboard, label: "Vue d'ensemble", id: 'overview' },
   { icon: Phone, label: 'Journal des Appels', id: 'calls' },
+  { icon: Mic, label: 'Analyser un appel', id: 'analyze' },
 ]
 
 export function Sidebar({ activeTab, onTabChange }) {

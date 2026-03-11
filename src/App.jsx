@@ -4,6 +4,7 @@ import { Overview } from './pages/Overview'
 import { CallsList } from './pages/CallsList'
 import { CallDetailsModal } from './components/CallDetailsModal'
 import { Login } from './pages/Login'
+import { AnalyzeCall } from './pages/AnalyzeCall'
 import { supabase } from './lib/supabase'
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
     switch (activeTab) {
       case 'overview': return <Overview />
       case 'calls': return <CallsList onSelectCall={(call) => setSelectedCall(call)} />
+      case 'analyze': return <AnalyzeCall />
       case 'insights': return <div className="p-8 rounded-2xl bg-secondary/30 border border-dashed border-border flex items-center justify-center text-muted-foreground h-64 italic">Module Insights IA en cours de développement...</div>
       default: return <Overview />
     }

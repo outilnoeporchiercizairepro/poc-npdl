@@ -22,9 +22,25 @@ export function CallsList({ onSelectCall }) {
     fetchCalls()
   }, [])
 
-  const filteredCalls = calls.filter(call => 
-    call.poste.toLowerCase().includes(searchTerm.toLowerCase())
+const filteredCalls = calls.filter(call => 
+    call.poste?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    call.summary?.toLowerCase().includes(searchTerm.toLowerCase())
   )
+
+  const handleDeleteCall = async (id) => {
+    if (!window.confirm("Êtes-vous sûr de vouloir supprimer cette analyse ?")) return
+    
+    const { error } = await supabase
+      .from('calls')
+      .delete()
+      .eq('id', id)
+
+    if (error) {
+      alert("Erreur lors de la suppression : " + error.message)
+    } else {
+      setCalls(calls.filter(c => c.id !== id))
+    }
+  }
 
   return (
     <div className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
@@ -57,7 +73,11 @@ export function CallsList({ onSelectCall }) {
            Chargement des analyses...
         </div>
       ) : (
-        <CallTable calls={filteredCalls} onViewDetails={onSelectCall} />
+        <CallTable 
+          calls={filteredCalls} 
+          onViewDetails={onSelectCall} 
+          onDeleteCall={handleDeleteCall} 
+        />
       )}
     </div>
   )

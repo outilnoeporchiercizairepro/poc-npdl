@@ -1,8 +1,8 @@
 import React from 'react'
 import { cn, getStatusColor } from '../lib/utils'
-import { ExternalLink, MessageSquare, AlertTriangle } from 'lucide-react'
+import { ExternalLink, MessageSquare, AlertTriangle, Trash2 } from 'lucide-react'
 
-export function CallTable({ calls, onViewDetails }) {
+export function CallTable({ calls, onViewDetails, onDeleteCall }) {
   return (
     <div className="w-full overflow-x-auto rounded-xl border border-border bg-card shadow-sm">
       <table className="w-full text-sm text-left">
@@ -14,7 +14,7 @@ export function CallTable({ calls, onViewDetails }) {
             <th className="px-6 py-4">Réponses</th>
             <th className="px-6 py-4">Ton</th>
             <th className="px-6 py-4">Satisfaction</th>
-            <th className="px-6 py-4 text-right">Détails</th>
+            <th className="px-6 py-4 text-right whitespace-nowrap">Actions</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
@@ -61,12 +61,22 @@ export function CallTable({ calls, onViewDetails }) {
                 </div>
               </td>
               <td className="px-6 py-4 text-right">
-                <button 
-                  onClick={() => onViewDetails(call)}
-                  className="p-2 hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-lg transition-all"
-                >
-                  <ExternalLink size={18} />
-                </button>
+                <div className="flex justify-end gap-2">
+                  <button 
+                    onClick={() => onViewDetails(call)}
+                    className="p-2 hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-lg transition-all"
+                    title="Voir les détails"
+                  >
+                    <ExternalLink size={18} />
+                  </button>
+                  <button 
+                    onClick={() => onDeleteCall(call.id)}
+                    className="p-2 hover:bg-destructive/10 text-muted-foreground hover:text-destructive rounded-lg transition-all"
+                    title="Supprimer l'analyse"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
